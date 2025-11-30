@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Chatty Kid — уроки английского онлайн</title>
+  <style>
+    :root {
+      --bg-page: #f3f6ff;
+      --bg-card: #ffffff;
+      --accent-1: #ffcf4a; /* жёлтый как на баннере */
+      --accent-2: #5c8df2; /* мягкий голубой */
+      --accent-3: #ff7b7b; /* для маленьких акцентов */
+      --text-main: #24303f;
+      --text-muted: #667085;
+      --radius-lg: 22px;
+      --radius-md: 16px;
+      --shadow-soft: 0 12px 30px rgba(59, 77, 129, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top left, rgba(255, 207, 74, 0.25), transparent 55%),
+                  radial-gradient(circle at bottom right, rgba(92, 141, 242, 0.25), transparent 55%),
+                  var(--bg-page);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+    }
+
+    /* NAV */
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 8px 20px rgba(148, 163, 184, 0.25);
+      margin-bottom: 26px;
+      position: sticky;
+      top: 10px;
+      z-index: 10;
+      backdrop-filter: blur(12px);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 14px;
+      background: var(--accent-1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+      color: #ffffff;
+      box-shadow: 0 6px 15px rgba(255, 207, 74, 0.7);
+    }
+
+    .logo-text-main {
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+
+    .logo-text-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      padding: 6px 10px;
+      border-radius: 999px;
+      transition: background 0.15s ease-out, color 0.15s ease-out;
+    }
+
+    .nav-links a:hover {
+      background: rgba(92, 141, 242, 0.12);
+      color: var(--text-main);
+    }
+
+    .nav-cta {
+      background: var(--accent-2);
+      color: #ffffff;
+      font-weight: 600;
+      padding: 7px 14px;
+      box-shadow: 0 10px 20px rgba(92, 141, 242, 0.45);
+    }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.3fr);
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .hero-text {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 24px 22px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .hero-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      font-size: clamp(26px, 4vw, 32px);
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      background: linear-gradient(120deg, #ff9f5a, #ffcf4a);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      max-width: 420px;
+    }
+
+    .hero-bullets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+      font-size: 12px;
+    }
+
+    .hero-pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(92, 141, 242, 0.08);
+      border: 1px solid rgba(92, 141, 242, 0.5);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: var(--accent-1);
+      color: #3b4250;
+      font-weight: 600;
+      font-size: 14px;
+      box-shadow: 0 12px 24px rgba(255, 207, 74, 0.55);
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 16px 32px rgba(255, 207, 74, 0.7);
+    }
+
+    .btn-ghost {
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: transparent;
+      color: var(--text-main);
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    .hero-note {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .hero-photo-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-photo-card {
+      background: var(--bg-card);
+      border-radius: 30px;
+      padding: 16px 16px 10px;
+      box-shadow: var(--shadow-soft);
+      max-width: 320px;
+    }
+
+    .hero-photo {
+      width: 100%;
+      border-radius: 26px;
+      display: block;
+    }
+
+    .hero-photo-caption {
+      margin-top: 8px;
+      font-size: 12px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    /* SECTIONS */
+    section {
+      margin-bottom: 28px;
+    }
+
+    .section-header {
+      margin-bottom: 12px;
+    }
+
+    .section-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .section-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    .cards-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 14px 14px 16px;
+      box-shadow: var(--shadow-soft);
+      font-size: 13px;
+    }
+
+    .card h3 {
+      font-size: 15px;
+      margin-bottom: 6px;
+    }
+
+    .card ul {
+      margin-left: 14px;
+      margin-top: 6px;
+      color: var(--text-muted);
+    }
+
+    .card ul li {
+      margin-bottom: 4px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .pill {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255, 207, 74, 0.18);
+      font-size: 12px;
+    }
+
+    /* CONTACT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .contact-list {
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+
+    .contact-item {
+      margin-bottom: 10px;
+    }
+
+    .contact-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 2px;
+    }
+
+    .contact-value a {
+      color: var(--accent-2);
+    }
+
+    .contact-form {
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 14px 14px 16px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .field {
+      display: grid;
+      gap: 4px;
+    }
+
+    .field label {
+      font-size: 12px;
+    }
+
+    .field input,
+    .field textarea,
+    .field select {
+      border-radius: 12px;
+      border: 1px solid #d0d7e8;
+      padding: 8px 10px;
+      font: inherit;
+      color: var(--text-main);
+      resize: vertical;
+    }
+
+    .field input:focus,
+    .field textarea:focus,
+    .field select:focus {
+      outline: none;
+      border-color: var(--accent-2);
+      box-shadow: 0 0 0 1px rgba(92, 141, 242, 0.5);
+    }
+
+    .contact-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    footer {
+      margin-top: 26px;
+      padding-top: 14px;
+      border-top: 1px solid #d9e0f2;
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    footer a {
+      color: var(--accent-2);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 820px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-photo-wrapper {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        border-radius: 18px;
+        padding-inline: 12px;
+      }
+
+      .hero-text {
+        padding: 18px 16px;
+      }
+
+      .page {
+        padding-inline: 14px;
+      }
+
+      .contact-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="navbar">
+      <div class="logo">
+        <div class="logo-badge">MK</div>
+        <div>
+          <div class="logo-text-main">My Chatty Kid</div>
+          <div class="logo-text-sub">Английский онлайн для детей и подростков</div>
+        </div>
+      </div>
+      <nav class="nav-links">
+        <a href="#about">Обо мне</a>
+        <a href="#lessons">Занятия</a>
+        <a href="#contact">Запись</a>
+        <a href="#contact" class="nav-cta">Пробный урок</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero" id="top">
+        <div class="hero-photo-wrapper">
+          <div class="hero-photo-card">
+            <!-- Замените путь к изображению на свой -->
+            <img src="my-chatty-kid-photo.jpg" alt="Репетитор английского языка My Chatty Kid" class="hero-photo" />
+          </div>
+        </div>
+
+        <div class="hero-text">
+          <div class="hero-label">Онлайн-уроки английского</div>
+          <h1 class="hero-title">Английский, который <span>нравится</span> детям</h1>
+          <p class="hero-sub">
+            Меня зовут Милена Валериевна. Я помогаю детям и подросткам говорить по‑английски увереннее: через игры, понятные объяснения и живое общение. Мы с Зайкой — команда My Chatty Kid.
+          </p>
+          <div class="hero-bullets">
+            <div class="hero-pill">дети 7–12 лет</div>
+            <div class="hero-pill">подростки 13–16 лет</div>
+            <div class="hero-pill">разговорный английский</div>
+            <div class="hero-pill">поддержка школьной программы</div>
+          </div>
+
+          <div class="hero-actions">
+            <a href="#contact" class="btn-primary">
+              <span>Записаться на пробный урок</span>
+              <span>→</span>
+            </a>
+            <a href="#lessons" class="btn-ghost">Как проходят занятия</a>
+          </div>
+          <p class="hero-note">Пробный онлайн-урок 30 минут — знакомство, цель, простой план занятий.</p>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about">
+        <div class="section-header">
+          <div class="section-label">Обо мне</div>
+          <h2 class="section-title">Кто такая My Chatty Kid</h2>
+          <p class="section-text">
+            Меня зовут Милена Валериевна. Я создала проект My Chatty Kid для детей и подростков, которым нужен живой, добрый английский без страха и скуки. На уроках мы много говорим, играем, используем яркие материалы и постепенно привыкаем применять английский в реальных ситуациях. Я внимательно отношусь к темпу каждого ребёнка и всегда на стороне ученика — поэтому мы и называем себя командой My Chatty Kid.
+          </p>
+        </div>
+
+        <div class="cards-3">
+          <article class="card">
+            <h3>Понятное объяснение</h3>
+            <p>Объясняю грамматику простыми словами и сразу показываю, как использовать её в речи.</p>
+            <ul>
+              <li>много примеров вслух;</li>
+              <li>мини-конспекты после урока;</li>
+              <li>чёткая структура занятия.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Игры и визуалы</h3>
+            <p>Для младших школьников использую карточки, картинки, онлайн-игры и задания на движение.</p>
+            <ul>
+              <li>чтобы ребёнку было интересно;</li>
+              <li>чтобы слова лучше запоминались;</li>
+              <li>чтобы уроки ждали с радостью.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Подросткам — по-взрослому</h3>
+            <p>С подростками больше говорим: обсуждаем фильмы, музыку, учёбу и жизнь, но по-английски.</p>
+            <ul>
+              <li>поддержка школьной программы;</li>
+              <li>разговорные задания;</li>
+              <li>подготовка к проверочным и экзаменам.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- LESSONS -->
+      <section id="lessons">
+        <div class="section-header">
+          <div class="section-label">Формат</div>
+          <h2 class="section-title">Как проходят занятия</h2>
+          <p class="section-text">
+            Все уроки проходят онлайн (Zoom / Skype / Telegram). Формат можно менять в зависимости от возраста и цели ребёнка.
+          </p>
+        </div>
+
+        <div class="cards-3">
+          <article class="card">
+            <h3>Индивидуальные уроки 1:1</h3>
+            <p>60 минут для подростков и 45 минут для младших школьников.</p>
+            <ul>
+              <li>учебный план под ребёнка;</li>
+              <li>домашние задания с обратной связью;</li>
+              <li>регулярный отчёт родителям.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Поддержка школы</h3>
+            <p>Разбираем темы из учебника, готовимся к контрольным и самостоятельным.</p>
+            <ul>
+              <li>повтор слов и грамматики;</li>
+              <li>тренировка заданий «как в тетради»;</li>
+              <li>уменьшаем страх перед уроками английского.</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Разговорный английский</h3>
+            <p>Для тех, кто уже немного знает язык и хочет больше говорить.</p>
+            <ul>
+              <li>диалоги и игры на говорение;</li>
+              <li>темы по интересам ребёнка;</li>
+              <li>живые фразы, а не только из учебника.</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="pill-row" style="margin-top:14px;">
+          <div class="pill">Рекомендуемый режим: 2–3 урока в неделю</div>
+          <div class="pill">Пробный урок — бесплатно / по договорённости</div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <div class="section-header">
+          <div class="section-label">Запись</div>
+          <h2 class="section-title">Связаться с My Chatty Kid</h2>
+          <p class="section-text">
+            Напишите мне в удобный мессенджер или оставьте короткий запрос через форму — я отвечу и предложу время пробного онлайн-урока.
+          </p>
+        </div>
+
+        <div class="contact-grid">
+          <div class="contact-list">
+            <div class="contact-item">
+              <div class="contact-label">VK-группа</div>
+              <div class="contact-value"><a href="https://vk.com/mychattykid" target="_blank" rel="noopener">vk.com/mychattykid</a></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-label">Телеграм / WhatsApp</div>
+              <div class="contact-value">+7 (000) 000-00-00</div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-label">E-mail</div>
+              <div class="contact-value"><a href="mailto:youremail@example.com">youremail@example.com</a></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-label">Кого беру</div>
+              <div class="contact-value">дети 7–12 лет и подростки 13–16 лет, уровень от совсем начинающих до уверенного среднего.</div>
+            </div>
+          </div>
+
+          <form class="contact-form">
+            <div class="field">
+              <label for="name">Имя родителя или ученика</label>
+              <input id="name" name="name" type="text" placeholder="Как к вам обращаться?" />
+            </div>
+            <div class="field">
+              <label for="age">Возраст ребёнка</label>
+              <input id="age" name="age" type="text" placeholder="Например: 9 лет" />
+            </div>
+            <div class="field">
+              <label for="goal">Цель занятий</label>
+              <select id="goal" name="goal">
+                <option value="">Выберите цель</option>
+                <option value="school">Поддержка школьной программы</option>
+                <option value="speaking">Разговорный английский</option>
+                <option value="exams">Подготовка к контрольным / экзаменам</option>
+                <option value="start">Начать с нуля</option>
+                <option value="other">Другое</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="contact-way">Как удобнее связаться?</label>
+              <input id="contact-way" name="contact-way" type="text" placeholder="Телеграм @ник, номер WhatsApp или ссылка VK" />
+            </div>
+            <div class="field">
+              <label for="message">Сообщение</label>
+              <textarea id="message" name="message" rows="3" placeholder="Кратко опишите запрос: уровень, сложности, желаемый график..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary">Отправить запрос</button>
+            <div class="contact-hint">
+              Форма демонстрационная. На реальном сайте подключите отправку через почту или сервис форм.
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© Команда My Chatty Kid (Милена Валериевна) — онлайн-уроки английского для детей и подростков.</span>
+      <span>Группа VK: <a href="https://vk.com/mychattykid" target="_blank" rel="noopener">vk.com/mychattykid</a></span>
+    </footer>
+  </div>
+</body>
+</html>
